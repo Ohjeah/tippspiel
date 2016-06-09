@@ -1,14 +1,14 @@
-Frankreich - Rumänien 
+Frankreich - Rumänien
 Albanien - Schweiz
 Rumänien - Schweiz
 Frankreich - Albanien
-Rumänien - Albanien
 Schweiz - Frankreich
+Rumänien - Albanien
 
 Wales - Slowakei
 England - Russland
 Russland - Slowakei
-England - Wales 
+England - Wales
 Slowakei - England
 Russland - Wales
 
@@ -23,8 +23,8 @@ Türkei - Kroatien
 Spanien - Tschechien
 Tschechien - Kroatien
 Spanien - Türkei
-schechien - Türkei
 Kroatien - Spanien
+Tschechien - Türkei
 
 Irland - Schweden
 Belgien - Italien
@@ -37,5 +37,5 @@ Schweden - Belgien
 Portugal - Island
 Island - Ungarn
 Portugal - Österreich
+Ungarn - Portugal
 Island - Österreich
-1Ungarn - Portugal
