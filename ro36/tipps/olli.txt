@@ -1,0 +1,41 @@
+Frankreich - Rumänien,2 - 1 
+Albanien - Schweiz,1 - 2
+Rumänien - Schweiz,1 - 2
+Frankreich - Albanien,2 - 1 
+Schweiz - Frankreich,1 - 2
+Rumänien - Albanien,1 - 2
+
+Wales - Slowakei,1 - 2
+England - Russland,2 - 1
+Russland - Slowakei,2 - 1
+England - Wales,2 - 1
+Slowakei - England,1 - 2
+Russland - Wales,2 - 1
+
+Polen - Nordirland,2 - 1
+Deutschland - Ukraine,2 - 1
+Ukraine - Nordirland,2 - 1
+Deutschland - Polen,2 - 1
+Ukraine - Polen,1 - 2 
+Nordirland - Deutschland,1 - 2
+
+Türkei - Kroatien,1 - 2
+Spanien - Tschechien,2 - 1
+Tschechien - Kroatien,1 - 2
+Spanien - Türkei,2 - 1
+Kroatien - Spanien,1 - 2
+Tschechien - Türkei,1 - 2 
+
+Irland - Schweden,1 - 2
+Belgien - Italien,2 - 1 
+Italien - Schweden,2 - 1
+Belgien - Irland,2 - 1
+Italien - Irland,2 - 1
+Schweden - Belgien,1 - 2
+
+Österreich - Ungarn,2 - 1
+Portugal - Island,2 - 1
+Island - Ungarn,1 - 2
+Portugal - Österreich,2 - 1
+Ungarn - Portugal,1 - 2
+Island - Österreich,1 - 2
