@@ -104,7 +104,7 @@ def update_data():
     series = pd.Series(add_rounds(get_all_rounds()))
     series.name = datetime.datetime.now()
 
-    ax = series.plot(kind="bar", rot=0)
+    ax = series.plot(kind="bar", rot=0, sort_columns=True)
     fig = ax.get_figure()
     fig.savefig("standings.png")
 
@@ -115,7 +115,7 @@ def update_data():
 
     df = df.append(series)
 
-    ax = df.plot()
+    ax = df.plot(sort_columns=True, rot=0)
     fig = ax.get_figure()
     fig.savefig("standings_vs_time.png")
 
