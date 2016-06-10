@@ -5,6 +5,7 @@ from collections import defaultdict
 import pandas as pd
 import datetime
 import matplotlib.pyplot as plt
+import seaborn as sns
 
 DATA_FILE = "saure_gurke.pkl"
 
@@ -99,7 +100,7 @@ def add_rounds(standings):
 
 def update_data():
 
-
+    sns.set_style('white')
     series = pd.Series(add_rounds(get_all_rounds()))
     series.name = datetime.datetime.now()
 
