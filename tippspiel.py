@@ -103,7 +103,6 @@ def update_data():
     sns.set_style('white')
     series = pd.Series(add_rounds(get_all_rounds()))
     series.name = datetime.datetime.now()
-
     ax = series.plot(kind="bar", rot=0, sort_columns=True)
     fig = ax.get_figure()
     fig.savefig("standings.png")
