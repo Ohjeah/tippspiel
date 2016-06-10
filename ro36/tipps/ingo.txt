@@ -1,0 +1,41 @@
+Frankreich - Rumänien,3-0
+Albanien - Schweiz,0-0
+Rumänien - Schweiz,0-1
+Frankreich - Albanien,2-0
+Schweiz - Frankreich,1-2
+Rumänien - Albanien,1-0
+
+Wales - Slowakei,1-0
+England - Russland,2-1
+Russland - Slowakei,0-1
+England - Wales,2-0
+Slowakei - England,0-1
+Russland - Wales,0-0
+
+Polen - Nordirland,1-0
+Deutschland - Ukraine,1-1
+Ukraine - Nordirland,0-1
+Deutschland - Polen,2-1
+Ukraine - Polen,0-1
+Nordirland - Deutschland,0-1
+
+Türkei - Kroatien,0-1
+Spanien - Tschechien,3-1
+Tschechien - Kroatien,2-1
+Spanien - Türkei,2-0
+Kroatien - Spanien,3-0
+Tschechien - Türkei,2-2
+
+Irland - Schweden,0-1
+Belgien - Italien,1-0
+Italien - Schweden,2-2
+Belgien - Irland,2-1
+Italien - Irland,2-0
+Schweden - Belgien,0-1
+
+Österreich - Ungarn,0-0
+Portugal - Island,2-0
+Island - Ungarn,1-0
+Portugal - Österreich,1-0
+Ungarn - Portugal,1-2
+Island - Österreich,1-2
