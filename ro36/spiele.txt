@@ -1,41 +1,41 @@
-Frankreich - Rumänien,3 - 0
-Albanien - Schweiz,0 - 2
-Rumänien - Schweiz,0 - 1
-Frankreich - Albanien,3 - 1
-Schweiz - Frankreich,1 - 1
-Rumänien - Albanien,2 - 3
+Frankreich - Rumänien
+Albanien - Schweiz
+Rumänien - Schweiz
+Frankreich - Albanien
+Schweiz - Frankreich
+Rumänien - Albanien
 
-Wales - Slowakei,0 - 1
-England - Russland,2 - 1
-Russland - Slowakei,1 - 1
-England - Wales,2 - 0
-Slowakei - England,0 - 1
-Russland - Wales,2 - 1
+Wales - Slowakei
+England - Russland
+Russland - Slowakei
+England - Wales
+Slowakei - England
+Russland - Wales
 
-Polen - Nordirland,1 - 0
-Deutschland - Ukraine,3 - 1
-Ukraine - Nordirland,2 - 1
-Deutschland - Polen,4 - 0
-Ukraine - Polen,1 - 1
-Nordirland - Deutschland,1 - 3
+Polen - Nordirland
+Deutschland - Ukraine
+Ukraine - Nordirland
+Deutschland - Polen
+Ukraine - Polen
+Nordirland - Deutschland
 
-Türkei - Kroatien,1 - 1
-Spanien - Tschechien,2 - 0
-Tschechien - Kroatien,1 - 1
-Spanien - Türkei,3 - 0
-Kroatien - Spanien,1 - 2
-Tschechien - Türkei,0 - 0
+Türkei - Kroatien
+Spanien - Tschechien
+Tschechien - Kroatien
+Spanien - Türkei
+Kroatien - Spanien
+Tschechien - Türkei
 
-Irland - Schweden,2 - 2
-Belgien - Italien,1 - 1
-Italien - Schweden,2 - 1
-Belgien - Irland,2 - 0
-Italien - Irland,3 - 0
-Schweden - Belgien,0 - 1
+Irland - Schweden
+Belgien - Italien
+Italien - Schweden
+Belgien - Irland
+Italien - Irland
+Schweden - Belgien
 
-Österreich - Ungarn,0 - 0
-Portugal - Island,3 - 0
-Island - Ungarn,1 - 1
-Portugal - Österreich,2 - 1
-Ungarn - Portugal,0 - 2
-Island - Österreich,0 - 1
+Österreich - Ungarn
+Portugal - Island
+Island - Ungarn
+Portugal - Österreich
+Ungarn - Portugal
+Island - Österreich
