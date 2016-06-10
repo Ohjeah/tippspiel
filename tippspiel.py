@@ -30,7 +30,7 @@ def get_content(fname):
         matches = read(os.path.join(os.path.dirname(fname), "../spiele.txt"))
         content = filter(all, zip(matches, content))
     else:
-        content = map(split, filter(lambda x: len(x) > 0, content))
+        content = map(split, filter(bool, content))
     return content
 
 
@@ -98,20 +98,25 @@ def add_rounds(standings):
 
 
 def update_data():
+
+
+    series = pd.Series(add_rounds(get_all_rounds()))
+    series.name = datetime.datetime.now()
+
+    ax = series.plot(kind="bar", rot=0)
+    fig = ax.get_figure()
+    fig.savefig("standings.png")
+
     if os.path.isfile(DATA_FILE):
         df = pd.read_pickle(DATA_FILE)
     else:
         df = pd.DataFrame()
 
-    series = pd.Series(add_rounds(get_all_rounds()))
-    series.name = datetime.datetime.now()
     df = df.append(series)
-
-    print(df)
 
     ax = df.plot()
     fig = ax.get_figure()
-    fig.savefig("standings.png")
+    fig.savefig("standings_vs_time.png")
 
     df.to_pickle(DATA_FILE)
 
