@@ -1,7 +1,12 @@
 import string
 import glob
 import os
+from collections import defaultdict
+import pandas as pd
+import datetime
+import matplotlib.pyplot as plt
 
+DATA_FILE = "saure_gurke.pkl"
 
 def read(fname):
     with open(fname, 'r') as f:
@@ -66,7 +71,7 @@ def score(tipp, result):
     if tipp == result:
         return 3    # exact result
 
-    elif tipp == 0 and result == 0:  # correct winner(>0), oder correct draw(=0)
+    elif result*tipp > 0 or (tipp == 0 and result == 0):  # correct winner(>0), oder correct draw(=0)
         return 1
 
     else:
@@ -79,6 +84,39 @@ def get_standing(round_number):
     results = load_tipps("ro{}/results.txt".format(round_number))
     return {player: total_points(tipps, results) for player, tipps in get_all_tipps(round_number)}
 
+def get_all_rounds():
+    for rn in [36, 16, 8, 4, 2]:
+        if os.path.isfile("ro{}/results.txt".format(rn)):
+            yield get_standing(rn)
+
+def add_rounds(standings):
+    overall = defaultdict(int)
+    for standing in standings:
+        for player, points in standing.items():
+            overall[player] += points
+    return overall
+
+
+def update_data():
+    if os.path.isfile(DATA_FILE):
+        df = pd.read_pickle(DATA_FILE)
+    else:
+        df = pd.DataFrame()
+
+    series = pd.Series(add_rounds(get_all_rounds()))
+    series.name = datetime.datetime.now()
+    df = df.append(series)
+
+    print(df)
+
+    ax = df.plot()
+    fig = ax.get_figure()
+    fig.savefig("standings.png")
+
+    df.to_pickle(DATA_FILE)
+
+
+
 
 if __name__ == "__main__":
-    print(get_standing(36))
+    update_data()
