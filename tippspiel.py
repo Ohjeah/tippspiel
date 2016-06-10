@@ -10,6 +10,7 @@ import seaborn as sns
 from itertools import repeat
 
 DATA_FILE = "saure_gurke.pkl"
+ROUND_MULTIPLICATOR = {36: 1, 16: 2, 8: 3, 4: 4, 2: 5}
 
 def read(fname):
     with open(fname, 'r') as f:
@@ -85,7 +86,8 @@ def total_points(tipps, results):
 
 def get_standing(round_number):
     results = load_tipps("ro{}/results.txt".format(round_number))
-    return {player: total_points(tipps, results) for player, tipps in get_all_tipps(round_number)}
+    return {player: ROUND_MULTIPLICATOR[round_number] * total_points(tipps, results)
+            for player, tipps in get_all_tipps(round_number)}
 
 def get_all_rounds():
     for rn in [36, 16, 8, 4, 2]:
