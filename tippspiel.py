@@ -5,7 +5,9 @@ from collections import defaultdict
 import pandas as pd
 import datetime
 import matplotlib.pyplot as plt
+import matplotlib.dates as dates
 import seaborn as sns
+from itertools import repeat
 
 DATA_FILE = "saure_gurke.pkl"
 
@@ -103,7 +105,8 @@ def update_data():
     sns.set_style('white')
     series = pd.Series(add_rounds(get_all_rounds()))
     series.name = datetime.datetime.now()
-    ax = series.plot(kind="bar", rot=0, sort_columns=True)
+    colors = sns.color_palette("muted", len(series))
+    ax = series.plot(kind="bar", rot=0, sort_columns=True, color=colors)
     fig = ax.get_figure()
     fig.savefig("standings.png")
 
@@ -114,11 +117,14 @@ def update_data():
 
     df = df.append(series)
 
-    ax = df.plot(sort_columns=True, rot=0)
+    ax = df.plot(sort_columns=True, rot=0, color=colors, marker='o')
+    ax.xaxis.set_major_locator(dates.WeekdayLocator(byweekday=range(1, 8), interval=1))
+    ax.xaxis.set_major_formatter(dates.DateFormatter('%d.%m'))
     fig = ax.get_figure()
     fig.savefig("standings_vs_time.png")
 
     df.to_pickle(DATA_FILE)
+    print(df)
 
 
 
