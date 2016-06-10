@@ -9,7 +9,7 @@ Wales - Slowakei,1 - 2
 England - Russland,2 - 0
 Russland - Slowakei,1 - 1
 England - Wales,2 - 0
-Slowakei - England,3 - 0
+Slowakei - England,0 - 3
 Russland - Wales,1 - 1
 
 Polen - Nordirland,3 - 0
