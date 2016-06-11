@@ -6,6 +6,7 @@ import pandas as pd
 import datetime
 import matplotlib.pyplot as plt
 import matplotlib.dates as dates
+import matplotlib.ticker as ticker
 import seaborn as sns
 from itertools import repeat
 from operator import sub
@@ -104,11 +105,15 @@ def add_rounds(standings):
 def update_data():
 
     sns.set_style('white')
+    plt.xkcd() 
     series = pd.Series(add_rounds(get_all_rounds()))
     series.name = datetime.datetime.now()
-    colors = sns.color_palette("muted", len(series))
+    colors = sns.color_palette("husl", len(series))
     ax = series.plot(kind="bar", rot=0, sort_columns=True, color=colors)
     fig = ax.get_figure()
+    fig.suptitle("Aktuelles Ranking")
+    plt.xlabel("Spieler")
+    plt.ylabel("Punkte")
     fig.savefig("standings.png")
 
     if os.path.isfile(DATA_FILE):
@@ -120,7 +125,13 @@ def update_data():
     ax = df.plot(sort_columns=True, rot=0, color=colors, marker='o')
     ax.xaxis.set_major_locator(dates.WeekdayLocator(byweekday=range(1, 8), interval=1))
     ax.xaxis.set_major_formatter(dates.DateFormatter('%d.%m'))
+    ax.set_ylim([0, 1.1*max(series)])
+    ax.yaxis.set_major_locator(ticker.MaxNLocator(integer=True))
+
     fig = ax.get_figure()
+    fig.suptitle("Punkte vs Zeit")
+    plt.xlabel("Datum")
+    plt.ylabel("Punkte")
     fig.savefig("standings_vs_time.png")
 
     df.to_pickle(DATA_FILE)
