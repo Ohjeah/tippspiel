@@ -121,6 +121,7 @@ def update_data():
     else:
         df = pd.DataFrame()
     df = df.append(series)
+    df.drop_duplicates(inplace=True)
 
     ax = df.plot(sort_columns=True, rot=0, color=colors, marker='o')
     ax.xaxis.set_major_locator(dates.WeekdayLocator(byweekday=range(1, 8), interval=1))
