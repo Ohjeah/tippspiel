@@ -110,6 +110,7 @@ def update_data():
     series.name = datetime.datetime.now()
     colors = sns.color_palette("husl", len(series))
     ax = series.plot(kind="bar", rot=0, sort_columns=True, color=colors)
+    ax.yaxis.set_major_locator(ticker.MaxNLocator(integer=True))
     fig = ax.get_figure()
     fig.suptitle("Aktuelles Ranking")
     plt.xlabel("Spieler")
@@ -121,7 +122,7 @@ def update_data():
     else:
         df = pd.DataFrame()
     df = df.append(series)
-    df.drop_duplicates(inplace=True)
+    #df.drop_duplicates(inplace=True)
 
     ax = df.plot(sort_columns=True, rot=0, color=colors, marker='o')
     ax.xaxis.set_major_locator(dates.WeekdayLocator(byweekday=range(1, 8), interval=1))
