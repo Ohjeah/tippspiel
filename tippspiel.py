@@ -8,6 +8,7 @@ import matplotlib.pyplot as plt
 import matplotlib.dates as dates
 import seaborn as sns
 from itertools import repeat
+from operator import sub
 
 DATA_FILE = "saure_gurke.pkl"
 ROUND_MULTIPLICATOR = {36: 1, 16: 2, 8: 3, 4: 4, 2: 5}
@@ -47,9 +48,8 @@ def valid_tipp(str, valid=frozenset(string.digits + " " + "-")):
 
 
 def parse(tipp):
-
     if tipp and valid_tipp(tipp):
-        return eval(tipp)
+        return [int(x) for x in tipp.split('-')]
     else:
         return None
 
@@ -68,14 +68,13 @@ def get_all_tipps(round_number):
         yield basename(fname), load_tipps(fname)
 
 def score(tipp, result):
-
     if result is None or tipp is None:
         return 0    # match not played or no valid tipp 
 
-    if tipp == result:
+    elif tipp == result:
         return 3    # exact result
 
-    elif result*tipp > 0 or (tipp == 0 and result == 0):  # correct winner(>0), oder correct draw(=0)
+    elif sub(*result)*sub(*tipp) > 0 or (sub(*tipp) == 0 and sub(*result) == 0):  # correct winner(>0), oder correct draw(=0)
         return 1
 
     else:
@@ -90,7 +89,7 @@ def get_standing(round_number):
             for player, tipps in get_all_tipps(round_number)}
 
 def get_all_rounds():
-    for rn in [36, 16, 8, 4, 2]:
+    for rn in ROUND_MULTIPLICATOR.keys():
         if os.path.isfile("ro{}/results.txt".format(rn)):
             yield get_standing(rn)
 
@@ -116,7 +115,6 @@ def update_data():
         df = pd.read_pickle(DATA_FILE)
     else:
         df = pd.DataFrame()
-
     df = df.append(series)
 
     ax = df.plot(sort_columns=True, rot=0, color=colors, marker='o')
@@ -126,9 +124,6 @@ def update_data():
     fig.savefig("standings_vs_time.png")
 
     df.to_pickle(DATA_FILE)
-    print(df)
-
-
 
 
 if __name__ == "__main__":

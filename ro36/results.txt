@@ -1,11 +1,11 @@
 Frankreich - Rumänien,2-1
-Albanien - Schweiz
+Albanien - Schweiz,0-1
 Rumänien - Schweiz
 Frankreich - Albanien
 Schweiz - Frankreich
 Rumänien - Albanien
 
-Wales - Slowakei
+Wales - Slowakei,2-1
 England - Russland
 Russland - Slowakei
 England - Wales
