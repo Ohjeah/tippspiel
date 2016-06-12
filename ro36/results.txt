@@ -12,14 +12,14 @@ England - Wales
 Slowakei - England
 Russland - Wales
 
-Polen - Nordirland
-Deutschland - Ukraine
+Polen - Nordirland,1-0
+Deutschland - Ukraine,2-0
 Ukraine - Nordirland
 Deutschland - Polen
 Ukraine - Polen
 Nordirland - Deutschland
 
-Türkei - Kroatien
+Türkei - Kroatien,0-1
 Spanien - Tschechien
 Tschechien - Kroatien
 Spanien - Türkei
