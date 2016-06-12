@@ -8,6 +8,7 @@ import matplotlib.pyplot as plt
 import matplotlib.dates as dates
 import matplotlib.ticker as ticker
 import seaborn as sns
+import datetime
 from itertools import repeat
 from operator import sub
 
@@ -122,12 +123,13 @@ def update_data():
     else:
         df = pd.DataFrame()
     df = df.append(series)
-    #df.drop_duplicates(inplace=True)
 
     ax = df.plot(sort_columns=True, rot=0, color=colors, marker='o')
-    ax.xaxis.set_major_locator(dates.WeekdayLocator(byweekday=range(1, 8), interval=1))
+    date1 = datetime.datetime(2016, 6, 10)
+    date2 = datetime.datetime(2016, 7, 11)
     ax.xaxis.set_major_formatter(dates.DateFormatter('%d.%m'))
     ax.set_ylim([0, 1.1*max(series)])
+    ax.set_xlim(date1, date2)
     ax.yaxis.set_major_locator(ticker.MaxNLocator(integer=True))
 
     fig = ax.get_figure()
