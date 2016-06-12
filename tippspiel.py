@@ -116,6 +116,7 @@ def update_data():
     fig.suptitle("Aktuelles Ranking")
     plt.xlabel("Spieler")
     plt.ylabel("Punkte")
+    fig.subplots_adjust(bottom=0.15)
     fig.savefig("standings.png")
 
     if os.path.isfile(DATA_FILE):
@@ -136,6 +137,7 @@ def update_data():
     fig.suptitle("Punkte vs Zeit")
     plt.xlabel("Datum")
     plt.ylabel("Punkte")
+    fig.subplots_adjust(bottom=0.15)
     fig.savefig("standings_vs_time.png")
 
     df.to_pickle(DATA_FILE)
