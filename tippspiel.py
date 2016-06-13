@@ -18,36 +18,10 @@ ROUND_MULTIPLICATOR = {36: 1, 16: 2, 8: 3, 4: 4, 2: 5}
 def read(fname):
     with open(fname, 'r') as f:
         content = [line[:-1] for line in f.readlines()]
-    return content
-
-def split(line):
-    line = line.split(',')
-    a = line[0]
-    if len(line) < 2:
-        b = None
-    else:
-        b = line[1]
-    return a, b
-
-
-def get_content(fname):
-    content = read(fname)
-
-    if "result" not in fname and len(content[0].split(',')) == 1:
-        matches = read(os.path.join(os.path.dirname(fname), "../spiele.txt"))
-        content = filter(all, zip(matches, content))
-    else:
-        content = map(split, filter(bool, content))
-    return content
-
-
-def load_strengths(fname):
-    return {k: float(v) for k,v in get_content(fname)}
-
+    return filter(bool, content)
 
 def valid_tipp(str, valid=frozenset(string.digits + " " + "-")):
     return frozenset(str) <= valid
-
 
 def parse(tipp):
     if tipp and valid_tipp(tipp):
@@ -55,10 +29,34 @@ def parse(tipp):
     else:
         return None
 
+def split(line, with_time=False):
+    line = line.split(',')
+    index = 0
+    if with_time:
+        time = line[0]
+        index = 1
+    match = line[index]
+    if len(line) > index+1:
+        result = line[index+1]
+    else:
+        result = None
+    if with_time:
+        return time, match, result
+    else:
+        return match, result
+
+def parse_result(content):
+    for line in content:
+        time, match, result = split(line, with_time=True)
+        yield {'time': time, 'match': match, 'result': tipp}
+
+
+def get_content(fname):
+    return map(split, read(fname))
+
 
 def load_tipps(fname):
     return {k: parse(v) for k, v in get_content(fname)}
-
 
 def basename(fname):
     return os.path.splitext(os.path.basename(fname))[0]
@@ -71,7 +69,7 @@ def get_all_tipps(round_number):
 
 def score(tipp, result):
     if result is None or tipp is None:
-        return 0    # match not played or no valid tipp 
+        return 0    # match not played or no valid tipp
 
     elif tipp == result:
         return 3    # exact result
@@ -106,7 +104,7 @@ def add_rounds(standings):
 def update_data():
 
     sns.set_style('white')
-    plt.xkcd() 
+    plt.xkcd()
     series = pd.Series(add_rounds(get_all_rounds()))
     series.name = datetime.datetime.now()
     colors = sns.color_palette("husl", len(series))
