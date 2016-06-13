@@ -11,17 +11,22 @@ import seaborn as sns
 import datetime
 from itertools import repeat
 from operator import sub
+from functools import partial
+
 
 DATA_FILE = "saure_gurke.pkl"
 ROUND_MULTIPLICATOR = {36: 1, 16: 2, 8: 3, 4: 4, 2: 5}
+
 
 def read(fname):
     with open(fname, 'r') as f:
         content = [line[:-1] for line in f.readlines()]
     return filter(bool, content)
 
+
 def valid_tipp(str, valid=frozenset(string.digits + " " + "-")):
     return frozenset(str) <= valid
+
 
 def parse(tipp):
     if tipp and valid_tipp(tipp):
@@ -45,18 +50,21 @@ def split(line, with_time=False):
     else:
         return match, result
 
+
 def parse_result(content):
     for line in content:
         time, match, result = split(line, with_time=True)
         yield {'time': time, 'match': match, 'result': tipp}
 
 
-def get_content(fname):
-    return map(split, read(fname))
+def get_content(fname, with_time=False):
+    splitter = partial(split, with_time=with_time)
+    return map(splitter, read(fname))
 
 
 def load_tipps(fname):
     return {k: parse(v) for k, v in get_content(fname)}
+
 
 def basename(fname):
     return os.path.splitext(os.path.basename(fname))[0]
@@ -66,6 +74,7 @@ def get_all_tipps(round_number):
     files = glob.glob("ro{}/tipps/*.txt".format(round_number))
     for fname in files:
         yield basename(fname), load_tipps(fname)
+
 
 def score(tipp, result):
     if result is None or tipp is None:
@@ -80,6 +89,7 @@ def score(tipp, result):
     else:
         return 0
 
+
 def total_points(tipps, results):
     return sum(score(tipps[match], result) for match, result in results.items())
 
@@ -88,10 +98,12 @@ def get_standing(round_number):
     return {player: ROUND_MULTIPLICATOR[round_number] * total_points(tipps, results)
             for player, tipps in get_all_tipps(round_number)}
 
+
 def get_all_rounds():
     for rn in ROUND_MULTIPLICATOR.keys():
         if os.path.isfile("ro{}/results.txt".format(rn)):
             yield get_standing(rn)
+
 
 def add_rounds(standings):
     overall = defaultdict(int)
