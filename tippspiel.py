@@ -51,10 +51,9 @@ def split(line, with_time=False):
         return match, result
 
 
-def parse_result(content):
-    for line in content:
-        time, match, result = split(line, with_time=True)
-        yield {'time': time, 'match': match, 'result': tipp}
+def load_result(fname):
+    content = get_content(fname, with_time=True)
+    return {match: {'time': time, 'result': parse(result)} for time, match, result in content}
 
 
 def get_content(fname, with_time=False):
@@ -91,10 +90,11 @@ def score(tipp, result):
 
 
 def total_points(tipps, results):
-    return sum(score(tipps[match], result) for match, result in results.items())
+    return sum(score(tipps[match], result["result"]) for match, result in results.items())
+
 
 def get_standing(round_number):
-    results = load_tipps("ro{}/results.txt".format(round_number))
+    results = load_result("ro{}/results.txt".format(round_number))
     return {player: ROUND_MULTIPLICATOR[round_number] * total_points(tipps, results)
             for player, tipps in get_all_tipps(round_number)}
 
