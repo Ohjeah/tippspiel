@@ -15,7 +15,7 @@ from functools import partial
 
 
 DATA_FILE = "saure_gurke.pkl"
-ROUND_MULTIPLICATOR = {36: 1, 16: 2, 8: 3, 4: 4, 2: 5}
+ROUND_MULTIPLICATOR = {24: 1, 16: 2, 8: 3, 4: 4, 2: 5}
 
 
 def read(fname):
