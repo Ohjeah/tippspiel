@@ -23,7 +23,7 @@ Türkei - Kroatien,0-1
 Spanien - Tschechien,3-1
 Tschechien - Kroatien,2-1
 Spanien - Türkei,2-0
-Kroatien - Spanien,3-0
+Kroatien - Spanien,0-3
 Tschechien - Türkei,2-2
 
 Irland - Schweden,0-1
