@@ -37,5 +37,5 @@
 14 June 21.00,Portugal - Island,1-1
 18 June 18.00,Island - Ungarn,1-1
 18 June 21.00,Portugal - Österreich,0-0
-22 June 18.00,Ungarn - Portugal
-22 June 18.00,Island - Österreich
+22 June 18.00,Ungarn - Portugal,3-3
+22 June 18.00,Island - Österreich,2-1
