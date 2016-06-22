@@ -12,6 +12,7 @@ import datetime
 from itertools import repeat
 from operator import sub
 from functools import partial
+from toolz.dicttoolz import get_in
 
 
 DATA_FILE = "saure_gurke.pkl"
@@ -71,8 +72,7 @@ def basename(fname):
 
 def get_all_tipps(round_number):
     files = glob.glob("ro{}/tipps/*.txt".format(round_number))
-    for fname in files:
-        yield basename(fname), load_tipps(fname)
+    return {basename(fname): load_tipps(fname) for fname in files}
 
 
 def score(tipp, result):
@@ -93,15 +93,19 @@ def total_points(tipps, results):
     return sum(score(tipps[match], result["result"]) for match, result in results.items())
 
 
+def get_fname(rn):
+    return "ro{}/results.txt".format(rn)
+
+
 def get_standing(round_number):
-    results = load_result("ro{}/results.txt".format(round_number))
+    results = load_result(get_fname(rn))
     return {player: ROUND_MULTIPLICATOR[round_number] * total_points(tipps, results)
-            for player, tipps in get_all_tipps(round_number)}
+            for player, tipps in get_all_tipps(round_number).items()}
 
 
 def get_all_rounds():
     for rn in ROUND_MULTIPLICATOR.keys():
-        if os.path.isfile("ro{}/results.txt".format(rn)):
+        if os.path.isfile(get_fname(rn)):
             yield get_standing(rn)
 
 
@@ -112,13 +116,39 @@ def add_rounds(standings):
             overall[player] += points
     return overall
 
+def time(tsring):
+    return datetime.datetime.strptime(tsring + ' 2016', '%d %B %H.%M %Y') 
+
+def round_to_df(rn):
+        results = load_result(get_fname(rn))
+        all_tipps = get_all_tipps(rn)
+
+        matches = list(results.keys())
+        times = [time(a['time']) for a in results.values()]
+        df = pd.DataFrame(columns=all_tipps.keys(), index=[matches, times])
+
+        for game, game_data in results.items():
+            if game_data['result']:
+                game_tipps = {player: ROUND_MULTIPLICATOR[rn]*score(players_tipp[game], game_data['result'])
+                              for player, players_tipp in all_tipps.items()}
+
+                df.loc[game, time(game_data['time'])] = game_tipps
+        
+        return df.swaplevel().sort_index().sort_index(axis=1)
+
+def get_all_rounds():
+    return pd.concat([round_to_df(rn) for rn in ROUND_MULTIPLICATOR.keys() if os.path.isfile(get_fname(rn))])
+
 
 def update_data():
 
+
+    df = get_all_rounds()
+
     sns.set_style('white')
     plt.xkcd()
-    series = pd.Series(add_rounds(get_all_rounds()))
-    series.name = datetime.datetime.now()
+
+    series = df.sum()
     colors = sns.color_palette("husl", len(series))
     ax = series.plot(kind="bar", rot=0, sort_columns=True, color=colors)
     ax.yaxis.set_major_locator(ticker.MaxNLocator(integer=True))
@@ -129,13 +159,10 @@ def update_data():
     fig.subplots_adjust(bottom=0.15)
     fig.savefig("standings.png")
 
-    if os.path.isfile(DATA_FILE):
-        df = pd.read_pickle(DATA_FILE)
-    else:
-        df = pd.DataFrame()
-    df = df.append(series)
 
-    ax = df.plot(sort_columns=True, rot=0, color=colors, marker='o')
+    df = df.dropna()
+    index = df.index.get_level_values(0)
+    ax = df.cumsum().plot(x=index, kind='area', stacked=False, sort_columns=True, rot=0, color=colors)
     date1 = datetime.datetime(2016, 6, 10)
     date2 = datetime.datetime(2016, 7, 11)
     ax.xaxis.set_major_formatter(dates.DateFormatter('%d.%m'))
@@ -150,8 +177,10 @@ def update_data():
     fig.subplots_adjust(bottom=0.15)
     fig.savefig("standings_vs_time.png")
 
-    df.to_pickle(DATA_FILE)
+    return df
 
 
 if __name__ == "__main__":
-    update_data()
+    df =update_data()
+
+
