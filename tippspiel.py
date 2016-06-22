@@ -140,7 +140,7 @@ def update_data():
 
     plotdf = plotdf.dropna()
     index = plotdf.index.get_level_values(0)
-    ax = plotdf.cumsum().plot(x=index, kind='area', stacked=False, sort_columns=True, rot=0, color=colors)
+    ax = plotdf.cumsum().plot(x=index, stacked=False, sort_columns=True, rot=0, color=colors)
     date1 = datetime.datetime(2016, 6, 10)
     date2 = datetime.datetime(2016, 7, 11)
     ax.xaxis.set_major_formatter(dates.DateFormatter('%d.%m'))

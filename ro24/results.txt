@@ -30,8 +30,8 @@
 13 June 21.00,Belgien - Italien,0-2
 17 June 15.00,Italien - Schweden,1-0
 18 June 15.00,Belgien - Irland,3-0
-22 June 21.00,Italien - Irland
-22 June 21.00,Schweden - Belgien
+22 June 21.00,Italien - Irland,0-1
+22 June 21.00,Schweden - Belgien,0-1
 
 14 June 18.00,Österreich - Ungarn,0-2
 14 June 21.00,Portugal - Island,1-1
