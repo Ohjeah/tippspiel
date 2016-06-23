@@ -169,17 +169,13 @@ def update_indexhtml(df):
              """<h2>Nächste Tipps</h2><br><br>"""]
 
     def formatter(field):
-        if field:
-            fmt = "{} - {}".format(*field)
-        else:
-            fmt = ""
-        return fmt
+        return "{} - {}".format(*field)
 
     formatters = list(repeat(formatter, times=len(df.columns)))
 
     with open('index.html', 'w') as f:
         f.writelines("\n" + "\n".join(lines))
-        f.write(df.to_html(justify='left', sparsify=True, col_space=60, formatters=formatters))
+        f.write(df.to_html(justify='left', sparsify=True, col_space=60, formatters=formatters, na_rep=''))
 
 
 if __name__ == "__main__":
