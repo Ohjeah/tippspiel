@@ -172,7 +172,7 @@ def update_indexhtml(df):
         if field:
             fmt = "{} - {}".format(*field)
         else:
-            fmt = field
+            fmt = ""
         return fmt
 
     formatters = list(repeat(formatter, times=len(df.columns)))
