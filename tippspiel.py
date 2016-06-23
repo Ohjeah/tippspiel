@@ -119,9 +119,12 @@ def get_all_rounds():
     return pd.concat([round_to_df(rn) for rn in ROUND_MULTIPLICATOR.keys() if os.path.isfile(get_fname(rn))])
 
 
-def update_data():
-    df = get_all_rounds()
+def next_games_tipps(df):
+    unplayed = df[df.isnull().any(1)]
+    return unplayed.swaplevel(axis=1)['tipp']
 
+
+def update_plots(df):
     plotdf = df.swaplevel(axis=1)['score']
 
     sns.set_style('white')
@@ -155,10 +158,21 @@ def update_data():
     fig.subplots_adjust(bottom=0.15)
     fig.savefig("standings_vs_time.png")
 
-    return df
+
+def update_indexhtml(df):
+    lines = ["""<meta charset="UTF-8">""",
+             """<link rel="stylesheet" href="style.css">""",
+             """<h2>Ranking</h2><br><br>"""
+             """<img src = "standings.png" > </img>""",
+             """<img src = "standings_vs_time.png" > </img>""",
+             """<h2>Nächste Tipps</h2><br><br>"""]
+
+    with open('index.html', 'w') as f:
+        f.writelines("\n" + "\n".join(lines))
+        f.write(df.to_html(justify='left', sparsify=True, col_space=60))
 
 
 if __name__ == "__main__":
-    df = update_data()
-    #df = round_to_df(24)
-    #print(df)
+    df = get_all_rounds()
+    update_plots(df)
+    update_indexhtml(next_games_tipps(df))
