@@ -10,8 +10,9 @@ import matplotlib.ticker as ticker
 import seaborn as sns
 from operator import sub
 from functools import partial
+from itertools import repeat
 
-DATA_FILE = "saure_gurke.pkl"
+
 ROUND_MULTIPLICATOR = {24: 1, 16: 2, 8: 3, 4: 4, 2: 5}
 
 
@@ -167,9 +168,18 @@ def update_indexhtml(df):
              """<img src = "standings_vs_time.png" > </img>""",
              """<h2>Nächste Tipps</h2><br><br>"""]
 
+    def formatter(field):
+        if field:
+            fmt = "{} - {}".format(*field)
+        else:
+            fmt = field
+        return fmt
+
+    formatters = list(repeat(formatter, times=len(df.columns)))
+
     with open('index.html', 'w') as f:
         f.writelines("\n" + "\n".join(lines))
-        f.write(df.to_html(justify='left', sparsify=True, col_space=60))
+        f.write(df.to_html(justify='left', sparsify=True, col_space=60, formatters=formatters))
 
 
 if __name__ == "__main__":
