@@ -1,4 +1,4 @@
-[Standings und aktuelle Tipps](ohjeah.github.io/tippspiel)
+[Standings und aktuelle Tipps](http://ohjeah.github.io/tippspiel)
 
 
 Regeln:
