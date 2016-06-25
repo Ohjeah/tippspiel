@@ -132,7 +132,7 @@ def update_plots(df):
     plt.xkcd()
 
     series = plotdf.sum()
-    colors = sns.color_palette("husl", len(series))
+    colors = sns.color_palette("hls", len(series))
     ax = series.plot(kind="bar", rot=0, sort_columns=True, color=colors)
     ax.yaxis.set_major_locator(ticker.MaxNLocator(integer=True))
     fig = ax.get_figure()
@@ -144,11 +144,11 @@ def update_plots(df):
 
     plotdf = plotdf.dropna()
     index = plotdf.index.get_level_values(0)
-    ax = plotdf.cumsum().plot(x=index, stacked=False, sort_columns=True, rot=0, color=colors)
+
+    ax = plotdf.cumsum().plot(x=index, sort_columns=True, rot=0, color=colors)
     date1 = datetime.datetime(2016, 6, 10)
     date2 = datetime.datetime(2016, 7, 11)
     ax.xaxis.set_major_formatter(dates.DateFormatter('%d.%m'))
-    ax.set_ylim([0, 1.1 * max(series)])
     ax.set_xlim(date1, date2)
     ax.yaxis.set_major_locator(ticker.MaxNLocator(integer=True))
 
@@ -160,12 +160,28 @@ def update_plots(df):
     fig.savefig("standings_vs_time.png")
 
 
+    df = plotdf.cumsum()
+    df = (df.T - df.mean(axis=1)).T
+    ax = df.plot(x=index, sort_columns=True, rot=0, color=colors)
+    ax.xaxis.set_major_formatter(dates.DateFormatter('%d.%m'))
+    ax.set_xlim(date1, date2)
+    ax.yaxis.set_major_locator(ticker.MaxNLocator(integer=True))
+    ax.plot([date1, date2], [0, 0], '-', color = '0.75', lw='1')
+    fig = ax.get_figure()
+    fig.suptitle("relative Punkte")
+    plt.xlabel("Datum")
+    plt.ylabel("Abweichung vom Mittelwert")
+    fig.subplots_adjust(bottom=0.15)
+    fig.savefig("standings_vs_time_mean.png")
+
+
 def update_indexhtml(df):
     lines = ["""<meta charset="UTF-8">""",
              """<link rel="stylesheet" href="style.css">""",
              """<h2>Ranking</h2><br><br>"""
              """<img src = "standings.png" > </img>""",
              """<img src = "standings_vs_time.png" > </img>""",
+             """<img src = "standings_vs_time_mean.png" > </img>""",
              """<h2>Nächste Tipps</h2><br><br>"""]
 
     def formatter(field):
