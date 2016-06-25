@@ -1,10 +1,10 @@
-Schweiz - Polen
-Wales - Nordirland
-Kroatien - Portugal
+Schweiz - Polen,1-1
+Wales - Nordirland,2-0
+Kroatien - Portugal,1-0
 
-Frankreich - Irland
-Deutschland - Slowakei
-Ungarn - Belgien
+Frankreich - Irland,1-0
+Deutschland - Slowakei,1-0
+Ungarn - Belgien,0-1
 
-Italien - Spanien
-England - Island
+Italien - Spanien,1-1
+England - Island,2-0
