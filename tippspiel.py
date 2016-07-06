@@ -104,8 +104,8 @@ def round_to_df(rn):
     times = [time(a['time']) for a in results.values()]
     columns = pd.MultiIndex.from_product([all_tipps.keys(), ['score', 'tipp']])
     df = pd.DataFrame(columns=columns, index=[matches, times])
-
     for game, game_data in results.items():
+
             game_scores = {(player, 'score'): ROUND_MULTIPLICATOR[rn] * score(players_tipp[game], game_data['result'])
                           for player, players_tipp in all_tipps.items()}
 
@@ -113,11 +113,12 @@ def round_to_df(rn):
 
             df.loc[game, time(game_data['time'])] = {**game_tipps, **game_scores}
 
-    return df.swaplevel().sort_index().sort_index(axis=1)
+    return df
 
 
 def get_all_rounds():
-    return pd.concat([round_to_df(rn) for rn in ROUND_MULTIPLICATOR.keys() if os.path.isfile(get_fname(rn))])
+    df = pd.concat([round_to_df(rn) for rn in ROUND_MULTIPLICATOR.keys() if os.path.isfile(get_fname(rn))])
+    return df.swaplevel().sort_index().sort_index(axis=1)
 
 
 def next_games_tipps(df):
@@ -126,6 +127,7 @@ def next_games_tipps(df):
 
 
 def update_plots(df):
+
     plotdf = df.swaplevel(axis=1)['score']
 
     sns.set_style('white')
